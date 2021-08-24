@@ -1,0 +1,45 @@
+<div class="btn-group" dropdown>
+  <button
+    id="button-basic"
+    dropdownToggle
+    type="button"
+    class="btn btn-primary dropdown-toggle"
+    aria-controls="dropdown-basic"
+  >
+    <ng-template #defaultSelected>
+      {{ selected?.name || label }}
+    </ng-template>
+    <ng-container
+      [ngTemplateOutlet]="selectedTemplateRef || defaultSelected"
+      [ngTemplateOutletContext]="{ $implicit: selected }"
+    >
+    </ng-container>
+    <span class="caret"></span>
+  </button>
+  <ul
+    id="dropdown-basic"
+    *dropdownMenu
+    class="dropdown-menu"
+    role="menu"
+    aria-labelledby="button-basic"
+  >
+    <li
+      role="menuitem"
+      *ngFor="let option of options; index as i"
+      (click)="selectOption(option)"
+    >
+      <ng-template #defaultOption>
+        <a class="dropdown-item">
+          {{ option?.name || option }}
+        </a>
+      </ng-template>
+      <a class="dropdown-item" href="#">
+        <ng-container
+          [ngTemplateOutlet]="optionTemplateRef || defaultOption"
+          [ngTemplateOutletContext]="{ $implicit: option, index: i }"
+        >
+        </ng-container>
+      </a>
+    </li>
+  </ul>
+</div>
